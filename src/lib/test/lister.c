@@ -60,11 +60,81 @@ int test3()
     return 0;
 }
 
+int test4()
+{
+    int result;
+    struct list_t * list;
+    list = list_init();
+
+    list_insert(list, "a", 1);
+    if (list_size(list) != 1)
+        log("failed");
+
+    list_insert(list, "b", 2);
+    if (list_size(list) != 2)
+        log("failed");
+
+    list_insert(list, "c", 3);
+    if (list_size(list) != 3)
+        log("failed");
+
+    list_lookup(list, "b", &result);
+    if (result == 2) 
+        log("success");
+    else
+        log("failed");
+
+    list_deinit(list);
+    return 0;
+}
+
+int test5()
+{
+    int result;
+    struct list_t * list;
+    list = list_init();
+
+    list_insert(list, "a", 1);
+    if (list_size(list) != 1)
+        log("failed");
+
+    list_insert(list, "b", 2);
+    if (list_size(list) != 2)
+        log("failed");
+
+    list_insert(list, "c", 3);
+    if (list_size(list) != 3)
+        log("failed");
+
+    list_lookup(list, "b", &result);
+    if (result != 2) 
+        log("failed");
+
+    result = list_remove(list, "b");
+    if (result == 0)
+        log("failed");
+
+    list_contain(list, "b", &result);
+    if (result)
+        log("failed");
+
+    list_contain(list, "c", &result);
+    if (result == 1)
+        log("success");
+    else
+        log("failed");
+
+    list_deinit(list);
+    return 0;
+}
+
 int main(void) 
 {
-    int rc;
-    
-    rc = test1();
-    rc = test2();
-    rc = test3();
+    test1();
+    test2();
+    test3();
+    test4();
+    test5();
+
+    return;
 }

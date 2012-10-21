@@ -16,6 +16,8 @@ struct list_t {
     struct node_t *head;
 };
 
+int free_it_all(struct node_t * node);
+
 struct list_t * list_init(void);
 int list_deinit(struct list_t * list);
 
