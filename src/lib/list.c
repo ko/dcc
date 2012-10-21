@@ -14,7 +14,12 @@ struct list_t * list_init(void)
     return list;
 }
 
-int free_it_all(struct node_t * node)
+/**
+ * Helper function for the list_deinit().
+ *
+ * @param node  list element/node
+ */
+void free_it_all(struct node_t * node)
 {
     if (node == NULL || node->next == NULL) {
         free(node);
@@ -25,16 +30,22 @@ int free_it_all(struct node_t * node)
     return;
 }
 
-int list_deinit(struct list_t * list)
+/**
+ * Close up shop for the list; free the memory.
+ *
+ * @param list  linked list header
+ */
+void list_deinit(void * list)
 {
+    struct list_t * l = (struct list_t *)list;
     struct node_t * p;
-    p = list->head;
+    p = l->head;
 
     free_it_all(p); 
 
 free_list:
     free(list);
-    return 0;
+    return;
 }
 
 /**
@@ -44,23 +55,35 @@ free_list:
  *
  * @return size of the list as an int
  */
-int list_size(struct list_t *list)
+int list_size(void * list)
 {
-    return list->size;
+    struct list_t * l = (struct list_t *)list;
+    return l->size;
 }
 
-int list_is_empty(struct list_t *list)
+int list_is_empty(void * list)
 {
+    struct list_t * l = (struct list_t *)list;
     int rc = 0;
 
-    if (list->size == 0)
+    if (l->size == 0)
         rc = 1;
 
     return rc;
 }
 
-int list_insert(struct list_t *list, char *key, int value)
+/**
+ * Insert a node to the linked list.
+ *
+ * @param list  linked list header
+ * @param key   node's key
+ * @param value node's associated value
+ *
+ * @return 0 for success
+ */
+int list_insert(void * list, char *key, int value)
 {
+    struct list_t * l = (struct list_t *)list;
     struct node_t * p;
     int rc = 0;
 
@@ -68,10 +91,10 @@ int list_insert(struct list_t *list, char *key, int value)
 
     strncpy(p->k, key, sizeof(p->k));
     p->v = value;
-    p->next = list->head;
-    list->size++;
+    p->next = l->head;
+    l->size++;
 
-    list->head = p;
+    l->head = p;
 
     return rc;
 }
@@ -86,9 +109,10 @@ int list_insert(struct list_t *list, char *key, int value)
  *
  * @return 0 if key found, -1 if key not found
  */  
-int list_lookup(struct list_t *list, char *key, int *value)
+int list_lookup(void * list, char *key, int *value)
 {
-    struct node_t * p = list->head;
+    struct list_t * l = (struct list_t *)list;
+    struct node_t * p = l->head;
     int rc = -1;
     *value = -1;
 
@@ -112,16 +136,17 @@ end:
  *
  * @return 0 if found and removed; -1 if element not found
  */
-int list_remove(struct list_t *list, char *key)
+int list_remove(void * list, char *key)
 {
-    struct node_t * p = list->head;
+    struct list_t * l = (struct list_t *)list;
+    struct node_t * p = l->head;
     int rc = -1;
 
     // list->head->key matches. special case.
     if (strncmp(p->k, key, sizeof(p->k)) == 0) {
-        list->head = list->head->next;
+        l->head = l->head->next;    // about to free p; use l here
         free(p);    
-        list->size--;
+        l->size--;
         rc = 0;
         goto end;
     }
@@ -131,7 +156,7 @@ int list_remove(struct list_t *list, char *key)
         if (strncmp(p->next->k, key, sizeof(p->k)) == 0) {
             p->next = p->next->next;
             free(p); 
-            list->size--;
+            l->size--;
             rc = 0;
             goto end;
         }  
@@ -140,9 +165,19 @@ end:
     return rc;
 }
 
-int list_contain(struct list_t *list, char *key, int *found)
+/**
+ * Whether an element exists in the linked list.
+ *
+ * @param list  linked list header
+ * @param key   key being searched for
+ * @param found 1 if found, 0 otherwise
+ *
+ * @return 0 on success for the function itself
+ */
+int list_contain(void * list, char *key, int *found)
 {
-    struct node_t * p = list->head;
+    struct list_t * l = (struct list_t *)list;
+    struct node_t * p = l->head;
     *found = 0;
     int rc = 0;
     while (p)

@@ -16,17 +16,19 @@ struct list_t {
     struct node_t *head;
 };
 
-int free_it_all(struct node_t * node);
+
+void free_it_all(struct node_t * node);
+
 
 struct list_t * list_init(void);
-int list_deinit(struct list_t * list);
+void list_deinit(void * list);
 
-int list_size(struct list_t *list);
-int list_is_empty(struct list_t *list);
+int list_size(void * list);
+int list_is_empty(void * list);
 
-int list_insert(struct list_t *list, char *key, int value);
-int list_lookup(struct list_t *list, char *key, int *value);
-int list_remove(struct list_t *list, char *key);
-int list_contain(struct list_t *list, char *key, int *found);
+int list_insert(void * list, char *key, int value);
+int list_lookup(void * list, char *key, int *value);
+int list_remove(void * list, char *key);
+int list_contain(void * list, char *key, int *found);
 
 #endif
