@@ -77,8 +77,7 @@ void map_put(map_t * map, char * key, int value)
  */
 int map_get(map_t * map, char * key, int * value)
 {
-    list_lookup(map, key, value);
-    return;
+    return list_lookup(map, key, value);
 }
 
 /**

@@ -118,7 +118,7 @@ int list_lookup(void * list, char *key, int *value)
     while (p) {
         if (strncmp(p->k, key, sizeof(p->k)) == 0) {
             *value = p->v;
-            rc = 1;
+            rc = 0;
             goto end;
         }
         p = p->next;

@@ -1,21 +1,21 @@
 #ifndef __OPERATORS_H__
 
 /* SImple operators */
-#define T_EXCLAMATION   '!'
-#define T_PERCENT       '%'
-#define T_KARET         '^'
-#define T_AMPERSAND     '&'
-#define T_ASTERISK      '*'
-#define T_MINUS         '-'
-#define T_PLUS          '+'
-#define T_ASSIGN        '='
-#define T_TILDE         '~'
-#define T_PIPE          '|'
-#define T_PERIOD        '.'
-#define T_LESS_THAN     '<'
-#define T_GREATER_THAN  '>'
-#define T_DIVIDE        '/'
-#define T_QUESTION      '?'
+#define O_EXCLAMATION   '!'
+#define O_PERCENT       '%'
+#define O_KARET         '^'
+#define O_AMPERSAND     '&'
+#define O_ASTERISK      '*'
+#define O_MINUS         '-'
+#define O_PLUS          '+'
+#define O_ASSIGN        '='
+#define O_TILDE         '~'
+#define O_PIPE          '|'
+#define O_PERIOD        '.'
+#define O_LESS_THAN     '<'
+#define O_GREATER_THAN  '>'
+#define O_DIVIDE        '/'
+#define O_QUESTION      '?'
 
 /* Compound assignment operators */
 // TODO
@@ -26,16 +26,16 @@
 
 
 /* Seperator characters */
-#define T_LPAREN        '('
-#define T_RPAREN        ')'
-#define T_LBRACKET      '['
-#define T_RBRACKET      ']'
-#define T_LCURLYBRACE   '{'
-#define T_RCURLYBRACE   '}'
-#define T_COMMA         ','
-#define T_SEMICOLON     ';'
-#define T_COLON         ':'
-#define T_ELLIPSIS      "..."
+#define S_LPAREN        '('
+#define S_RPAREN        ')'
+#define S_LBRACKET      '['
+#define S_RBRACKET      ']'
+#define S_LCURLYBRACE   '{'
+#define S_RCURLYBRACE   '}'
+#define S_COMMA         ','
+#define S_SEMICOLON     ';'
+#define S_COLON         ':'
+#define S_ELLIPSIS      "..."
 
 /* Alternate token spellings */
 // TODO
