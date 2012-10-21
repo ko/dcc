@@ -111,7 +111,7 @@ int test5()
         log("failed");
 
     result = list_remove(list, "b");
-    if (result == 0)
+    if (result != 0)
         log("failed");
 
     list_contain(list, "b", &result);

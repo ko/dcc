@@ -104,17 +104,25 @@ end:
     return rc;
 }
 
+/**
+ * Remove a node from the linked list if found.
+ *
+ * @param list  linked list header
+ * @param key   target key to match in the nodes
+ *
+ * @return 0 if found and removed; -1 if element not found
+ */
 int list_remove(struct list_t *list, char *key)
 {
     struct node_t * p = list->head;
-    int rc = 0;
+    int rc = -1;
 
     // list->head->key matches. special case.
     if (strncmp(p->k, key, sizeof(p->k)) == 0) {
         list->head = list->head->next;
         free(p);    
         list->size--;
-        rc = 1;
+        rc = 0;
         goto end;
     }
 
@@ -124,7 +132,7 @@ int list_remove(struct list_t *list, char *key)
             p->next = p->next->next;
             free(p); 
             list->size--;
-            rc = 1;
+            rc = 0;
             goto end;
         }  
     }
