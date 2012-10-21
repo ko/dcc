@@ -1,6 +1,7 @@
 dcc
 ===
-
+Initial goal is to have simple addition working from lexical 
+analysis to ASM generation. Build on top of that afterward.
 
 todo
 ====
