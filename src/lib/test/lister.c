@@ -128,6 +128,33 @@ int test5()
     return 0;
 }
 
+int test6() 
+{
+    int result;
+    int rc;
+    struct list_t * list;
+    list = list_init();
+
+    list_insert(list, "a", 1);
+    list_insert(list, "b", 2);
+    list_remove(list, "b");
+
+    if (list_size(list) != 1) {
+        log("failure");
+        goto end;
+    }
+
+    rc = list_lookup(list, "b", &result);
+    if (rc == -1 && result == -1)
+        log("success");
+    else
+        log("failure, %d", rc);
+
+end:
+    list_deinit(list);
+    return 0;
+}
+
 int main(void) 
 {
     test1();
@@ -135,6 +162,7 @@ int main(void)
     test3();
     test4();
     test5();
+    test6();
 
     return;
 }

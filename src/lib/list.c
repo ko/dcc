@@ -37,6 +37,13 @@ free_list:
     return 0;
 }
 
+/**
+ * Get the size of the linked list.
+ *
+ * @param list  linked list header
+ *
+ * @return size of the list as an int
+ */
 int list_size(struct list_t *list)
 {
     return list->size;
@@ -69,10 +76,21 @@ int list_insert(struct list_t *list, char *key, int value)
     return rc;
 }
 
+/**
+ * Looks up the target key and passes along its value 
+ * through the function argument.
+ *
+ * @param list  linked list header
+ * @param key   key that we want to find the value of
+ * @param value value if the key exists; if not exist, set to -1
+ *
+ * @return 0 if key found, -1 if key not found
+ */  
 int list_lookup(struct list_t *list, char *key, int *value)
 {
     struct node_t * p = list->head;
-    int rc = 0;
+    int rc = -1;
+    *value = -1;
 
     while (p) {
         if (strncmp(p->k, key, sizeof(p->k)) == 0) {
@@ -93,7 +111,7 @@ int list_remove(struct list_t *list, char *key)
 
     // list->head->key matches. special case.
     if (strncmp(p->k, key, sizeof(p->k)) == 0) {
-        list->head->next = list->head->next->next;
+        list->head = list->head->next;
         free(p);    
         list->size--;
         rc = 1;
