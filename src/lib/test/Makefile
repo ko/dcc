@@ -1,8 +1,12 @@
 CC=gcc
 LIB=..
 
+LIB_MAP=$(LIB)/map.c
+LIB_LIST=$(LIB)/list.c
+
+
 mapper:
-	$(CC) mapper.c -o mapper -g
+	$(CC) $(LIB_MAP) $(LIB_LIST) mapper.c -o mapper -g
 
 clean-mapper:
 	rm -f mapper
@@ -14,7 +18,7 @@ clean-logger:
 	rm -f logger
 
 lister:
-	$(CC) $(LIB)/list.c lister.c -o lister -g
+	$(CC) $(LIB_LIST) lister.c -o lister -g
 
 clean-lister:
 	rm -f lister
