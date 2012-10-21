@@ -12,7 +12,7 @@ SRC += init.c \
 OBJ=lexi
 
 all:
-	gcc $(SRC) -o $(OBJ) -I$(LIB)
+	gcc $(SRC) -o $(OBJ) -I$(LIB) -g -Wall
 
 clean:
 	rm $(OBJ)

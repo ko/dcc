@@ -18,6 +18,7 @@ static int token_lookup(char * str, int *val)
 
 static int token_scanner(FILE *fp, token_t * token)
 {
+    token_t localtok = {0};
     int i, c, cnext, toktype;
     int rc = 0;
 
@@ -35,45 +36,44 @@ static int token_scanner(FILE *fp, token_t * token)
             ungetc(cnext, fp);
 
     case '+':
-        token->value.String[0] = '+';
-        token->type = O_PLUS;
+        localtok.value.String[0] = '+';
+        localtok.type = O_PLUS;
         break;
 
     case '=':
-        token->value.String[0] = '=';
-        token->type = O_ASSIGN;
+        localtok.value.String[0] = '=';
+        localtok.type = O_ASSIGN;
         break;
 
     case ';':
-        token->value.String[0] = ';';
-        token->type = S_SEMICOLON;
+        localtok.value.String[0] = ';';
+        localtok.type = S_SEMICOLON;
         break;
-    case EOF:
-        token->type = R_END;
-        return R_END;
 
     case '"':
-        token->type = T_STRING;
+        localtok.type = T_STRING;
         // TODO finish this implementation
         break;
 
     case '1': case '2': case '3': case '4': case '5':
     case '6': case '7': case '8': case '9': case '0':
         // Assume integer
-        token->type = T_INTEGER;
-        token->value.Int = c - '0';
+        localtok.type = T_INTEGER;
+        localtok.value.Int = c - '0';
         while (isdigit(cnext = getc(fp))) 
-            token->value.Int = token->value.Int * 10 + c - '0';
+            localtok.value.Int = localtok.value.Int * 10 + cnext - '0';
 
+#if 0
+        // TODO finish this implementation
+        //
         // Possible double or float
         // Assume only double because floats are TBA
         if (cnext == '.') {
-            token->type = T_DOUBLE;
-            token->value.Double = token->value.Double;
-            // TODO finish this implementation
-        } else {
-            ungetc(cnext, fp);
-        }
+            localtok.type = T_DOUBLE;
+            localtok.value.Double = localtok.value.Double;
+        }  
+#endif
+        ungetc(cnext, fp);
         break;
 
     case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
@@ -81,21 +81,27 @@ static int token_scanner(FILE *fp, token_t * token)
     case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
     case 's': case 't': case 'u': case 'v': case 'w': case 'x':
     case 'y': case 'z':
-        token->value.String[0] = c; 
+        localtok.value.String[0] = c; 
         for (i = 1; isalpha(cnext = getc(fp)); i++) 
-            token->value.String[i] = cnext;
-        rc = token_lookup(token->value.String, &toktype);
+            localtok.value.String[i] = cnext;
+        rc = token_lookup(localtok.value.String, &toktype);
         if (rc == 0) 
-            token->type = toktype;
+            localtok.type = toktype;
         else 
             // not a reserved word. must be an identifier
-            token->type = T_IDENTIFIER;
+            localtok.type = T_IDENTIFIER;
         break;
+
+    case EOF:
+        localtok.type = R_END;
+        return R_END;
+
     default:
-        token->value.Int = c;
-        token->type = R_UNDEFINED;
+        localtok.value.Int = c;
+        localtok.type = R_UNDEFINED;
     }
 
+    *token = localtok;
     return rc;
 }
 
@@ -122,12 +128,14 @@ int main(int argc, char **argv)
     }
 
     while (token_scanner(fp, &token) != R_END) {
-        if (token.type) {
-            if (token.value.String)
-                printf("%s %d\n", token.value.String, token.type);
-            else if (token.value.Int)
+        switch(token.type) {
+            case T_INTEGER:
                 printf("%d %d\n", token.value.Int, token.type);
-            memset(&token, 0, sizeof(token));
+                break;
+            case T_DOUBLE:
+                break;
+            default:
+                printf("%s %d\n", token.value.String, token.type);
         }
     }
 

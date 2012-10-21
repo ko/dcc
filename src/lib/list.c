@@ -44,7 +44,6 @@ void list_deinit(void * list)
 
     free_it_all(p); 
 
-free_list:
     free(list);
     return;
 }

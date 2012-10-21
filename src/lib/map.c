@@ -90,6 +90,5 @@ int map_get(map_t * map, char * key, int * value)
  */
 int map_remove(map_t * map, char * key)
 {
-    list_remove(map, key);
-    return;
+    return list_remove(map, key);
 }
