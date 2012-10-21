@@ -1,14 +1,7 @@
 #include "lexical.h"
-
-void keyword_map_init(void);
+#include "map.h"
 
 int main(int argc, char **argv) 
 {
-    keyword_map_init();
-}
-
-
-void keyword_map_init(void)
-{
-    
+    map_t * map = map_init();
 }
