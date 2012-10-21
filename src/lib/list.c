@@ -1,12 +1,13 @@
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 
 #include "list.h"
 
-struct list_t * list_init(void)
+list_t * list_init(void)
 {
-    struct list_t * list;
-    list = malloc(sizeof(struct list_t));
+    list_t * list;
+    list = malloc(sizeof(list_t));
 
     list->size = 0;
     list->head = NULL;
@@ -19,7 +20,7 @@ struct list_t * list_init(void)
  *
  * @param node  list element/node
  */
-void free_it_all(struct node_t * node)
+void free_it_all(node_t * node)
 {
     if (node == NULL || node->next == NULL) {
         free(node);
@@ -37,8 +38,8 @@ void free_it_all(struct node_t * node)
  */
 void list_deinit(void * list)
 {
-    struct list_t * l = (struct list_t *)list;
-    struct node_t * p;
+    list_t * l = (list_t *)list;
+    node_t * p;
     p = l->head;
 
     free_it_all(p); 
@@ -57,13 +58,13 @@ free_list:
  */
 int list_size(void * list)
 {
-    struct list_t * l = (struct list_t *)list;
+    list_t * l = (list_t *)list;
     return l->size;
 }
 
 int list_is_empty(void * list)
 {
-    struct list_t * l = (struct list_t *)list;
+    list_t * l = (list_t *)list;
     int rc = 0;
 
     if (l->size == 0)
@@ -78,16 +79,14 @@ int list_is_empty(void * list)
  * @param list  linked list header
  * @param key   node's key
  * @param value node's associated value
- *
- * @return 0 for success
  */
-int list_insert(void * list, char *key, int value)
+void list_insert(void * list, char *key, int value)
 {
-    struct list_t * l = (struct list_t *)list;
-    struct node_t * p;
-    int rc = 0;
+    list_t * l = (list_t *)list;
+    node_t * p;
 
-    p = malloc(sizeof(struct node_t));
+    p = malloc(sizeof(node_t));
+    assert(p);
 
     strncpy(p->k, key, sizeof(p->k));
     p->v = value;
@@ -96,7 +95,7 @@ int list_insert(void * list, char *key, int value)
 
     l->head = p;
 
-    return rc;
+    return;
 }
 
 /**
@@ -111,8 +110,8 @@ int list_insert(void * list, char *key, int value)
  */  
 int list_lookup(void * list, char *key, int *value)
 {
-    struct list_t * l = (struct list_t *)list;
-    struct node_t * p = l->head;
+    list_t * l = (list_t *)list;
+    node_t * p = l->head;
     int rc = -1;
     *value = -1;
 
@@ -138,8 +137,8 @@ end:
  */
 int list_remove(void * list, char *key)
 {
-    struct list_t * l = (struct list_t *)list;
-    struct node_t * p = l->head;
+    list_t * l = (list_t *)list;
+    node_t * p = l->head;
     int rc = -1;
 
     // list->head->key matches. special case.
@@ -176,8 +175,8 @@ end:
  */
 int list_contain(void * list, char *key, int *found)
 {
-    struct list_t * l = (struct list_t *)list;
-    struct node_t * p = l->head;
+    list_t * l = (list_t *)list;
+    node_t * p = l->head;
     *found = 0;
     int rc = 0;
     while (p)

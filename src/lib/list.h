@@ -5,28 +5,28 @@
 
 #include <inttypes.h>
 
-struct node_t {
+typedef struct node_s {
     char k[KEY_MAX_SIZE];
     int v;
-    struct node_t * next;
-};
+    struct node_s * next;
+} node_t;
 
-struct list_t {
+typedef struct list_s {
     uint32_t size;
-    struct node_t *head;
-};
+    struct node_s *head;
+} list_t;
 
 
-void free_it_all(struct node_t * node);
+void free_it_all(node_t * node);
 
 
-struct list_t * list_init(void);
+list_t * list_init(void);
 void list_deinit(void * list);
 
 int list_size(void * list);
 int list_is_empty(void * list);
 
-int list_insert(void * list, char *key, int value);
+void list_insert(void * list, char *key, int value);
 int list_lookup(void * list, char *key, int *value);
 int list_remove(void * list, char *key);
 int list_contain(void * list, char *key, int *found);

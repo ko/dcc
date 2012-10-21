@@ -11,7 +11,7 @@
 int test1()
 {
     int result;
-    struct list_t * list;
+    list_t * list;
     list = list_init();
 
     result = list_is_empty(list);
@@ -32,7 +32,7 @@ int test2()
 {
     int result;
     int v;
-    struct list_t * list;
+    list_t * list;
     list = list_init();
 
 
@@ -55,7 +55,7 @@ int test2()
 int test3()
 {
     int result;
-    struct list_t * list;
+    list_t * list;
     list = list_init();
 
     result = list_size(list);
@@ -75,7 +75,7 @@ int test3()
 int test4()
 {
     int result;
-    struct list_t * list;
+    list_t * list;
     list = list_init();
 
     list_insert(list, "a", 1);
@@ -107,7 +107,7 @@ int test4()
 int test5()
 {
     int result;
-    struct list_t * list;
+    list_t * list;
     list = list_init();
 
     list_insert(list, "a", 1);
@@ -151,7 +151,7 @@ int test6()
 {
     int result;
     int rc;
-    struct list_t * list;
+    list_t * list;
     list = list_init();
 
     list_insert(list, "a", 1);
