@@ -5,6 +5,9 @@
 #include "../log.h"
 #include "../list.h"
 
+/**
+ * Verify list_is_empty() works for an empty list.
+ */
 int test1()
 {
     int result;
@@ -22,6 +25,9 @@ int test1()
     return 0;
 }
 
+/**
+ * Verify list_lookup() works for size=1.
+ */
 int test2()
 {
     int result;
@@ -43,6 +49,9 @@ int test2()
     return 0;
 }
 
+/**
+ * Verify the list_size() function returns size 0.
+ */
 int test3()
 {
     int result;
@@ -60,6 +69,9 @@ int test3()
     return 0;
 }
 
+/**
+ * Insert 3 nodes. Verify the middle node exists.
+ */
 int test4()
 {
     int result;
@@ -88,6 +100,10 @@ int test4()
     return 0;
 }
 
+/**
+ * Insert nodes a, b, c. Remove b and verify it's missing. 
+ * Verify that the head node is still there.
+ */
 int test5()
 {
     int result;
@@ -128,6 +144,9 @@ int test5()
     return 0;
 }
 
+/**
+ * Insert 2 nodes. Remove the head. Verify it's gone.
+ */
 int test6() 
 {
     int result;
