@@ -6,9 +6,9 @@ SRC=$(LIB)/map.c \
 	$(LIB)/list.c 
 
 # Dependencies
-SRC += init.c
+SRC += init.c \
+	   main.c
 
-SRC += lexical.c
 OBJ=lexi
 
 all:
