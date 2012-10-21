@@ -3,6 +3,7 @@
 #define R_UNDEFINED         257         /* confused analyzer */
 #define R_END               258         /* EOF found */
 
+/* Types */
 #define T_IDENTIFIER        259
 #define T_STRING            260
 #define T_INTEGER           261
@@ -11,9 +12,9 @@
 #define T_CHAR              264
 #define T_SHORT             265
 
-/* 259...357 are reserved values */
+/* 266...357 are reserved values */
 
-/* Keywords in C99 */
+/* Reserved keywords in C99 */
 #define R_AUTO              358
 #define R__BOOL             359
 #define R_BREAK             360
