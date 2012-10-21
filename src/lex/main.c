@@ -34,20 +34,13 @@ static int token_scanner(FILE *fp, token_t * token)
             ; // handle the comment
         else
             ungetc(cnext, fp);
-
-    case '+':
-        localtok.value.String[0] = '+';
-        localtok.type = O_PLUS;
-        break;
-
-    case '=':
-        localtok.value.String[0] = '=';
-        localtok.type = O_ASSIGN;
-        break;
-
+    case '+': case '=': 
+    case '(': case ')': case '{': case '}':
     case ';':
-        localtok.value.String[0] = ';';
-        localtok.type = S_SEMICOLON;
+        localtok.value.String[0] = c;
+        localtok.value.String[1] = 0;
+        rc = token_lookup(localtok.value.String, &toktype);
+        localtok.type = toktype;
         break;
 
     case '"':
@@ -84,6 +77,7 @@ static int token_scanner(FILE *fp, token_t * token)
         localtok.value.String[0] = c; 
         for (i = 1; isalpha(cnext = getc(fp)); i++) 
             localtok.value.String[i] = cnext;
+        ungetc(cnext, fp);
         rc = token_lookup(localtok.value.String, &toktype);
         if (rc == 0) 
             localtok.type = toktype;

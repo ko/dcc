@@ -31,9 +31,19 @@ void init_operators(map_t *map)
     return;
 }
 
+void init_seperators(map_t *map)
+{
+    map_put(map, "(",       S_LPAREN);
+    map_put(map, ")",       S_RPAREN);
+    map_put(map, "{",       S_LCURLYBRACE);
+    map_put(map, "}",       S_RCURLYBRACE);
+    map_put(map, ";",       S_SEMICOLON);
+}
+
 void init_lexical(map_t *map)
 {
     init_control_flow(map);
     init_data_types(map);
     init_operators(map);
+    init_seperators(map);
 }
