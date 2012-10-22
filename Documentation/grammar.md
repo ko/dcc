@@ -1,5 +1,4 @@
-C: A Reference Manual, Fifth Edition
-====================================
+_C: A Reference Manual, Fifth Edition_
 
 declaration:
     declaration-specifiers inititalized-declarator-list ;
