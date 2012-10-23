@@ -1,18 +1,16 @@
-SRC_ROOT=..
-LIB=$(SRC_ROOT)/lib
+SCANNER_X=scanner.x
+SCANNER_HS=scanner.hs
+SCANNER_HS_BIN=scanner scanner.hi scanner.o
 
-# Libraries
-SRC=$(LIB)/map.c \
-	$(LIB)/list.c 
+scan:
+	alex $(SCANNER_X) -o $(SCANNER_HS)
+	ghc $(SCANNER_HS)
 
-# Dependencies
-SRC += init.c \
-	   main.c
+scan-clean:
+	rm -f $(SCANNER_HS)
+	rm -f $(SCANNER_HS_BIN)
 
-OBJ=lexi
+clean: \
+	scan-clean
 
-all:
-	gcc $(SRC) -o $(OBJ) -I$(LIB) -g -Wall
 
-clean:
-	rm $(OBJ)
