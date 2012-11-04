@@ -28,9 +28,9 @@ tokens :-
     "-"                                 { \s -> THyphen }
     "+"                                 { \s -> TPlus }
     "/"                                 { \s -> TForwardSlash }
-    "\"                                 { \s -> TBackSlash }
     ","                                 { \s -> TComma }
     "&"                                 { \s -> TAmpersand }
+    "."                                 { \s -> TFullstop }
      
     "if"                                { \s -> TIf }
     "else"                              { \s -> TElse }
@@ -69,9 +69,9 @@ data Token  = TVoid
                 | THyphen
                 | TPlus
                 | TForwardSlash
-                | TBackSlash
                 | TComma
                 | TAmpersand
+                | TFullstop
             | TIf
                 | TElse
                 | TWhile
@@ -84,7 +84,7 @@ data Token  = TVoid
                 | TEqualityNo
                 | TAnd
                 | TOr
-            | TIntLiteral String
+            | TIntLiteral Int 
                 | TStringLiteral String
             deriving (Eq,Show)
 
