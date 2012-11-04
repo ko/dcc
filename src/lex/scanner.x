@@ -7,7 +7,9 @@ module Main (main) where
 $digit      = 0-9
 $alpha      = [a-zA-Z]
 $graphic    = $printable # $white
+$ident      = [0-9a-zA-Z_]
 @string     = \" ($graphic # \")* \"
+@identifier = ($alpha|_)($ident)*
 
 tokens :-
     $white+                             ;
@@ -39,6 +41,7 @@ tokens :-
     
     "main"                              { \s -> TMain }
     "return"                            { \s -> TReturn }
+    "continue"                          { \s -> TContinue }
 
     "!"                                 { \s -> TNot }
     "="                                 { \s -> TAssign }
@@ -50,6 +53,7 @@ tokens :-
 
     $digit+                             { \s -> TIntLiteral (read s) }
     @string                             { \s -> TStringLiteral (init (tail s)) } 
+    @identifier                         { \s -> TIdentifier (s) }
 
 {
 -- Each action has type :: String -> Token 
@@ -78,6 +82,7 @@ data Token  = TVoid
                 | TFor
             | TMain
                 | TReturn
+                | TContinue
             | TNot
                 | TAssign
                 | TEqualityYes
@@ -86,6 +91,7 @@ data Token  = TVoid
                 | TOr
             | TIntLiteral Int 
                 | TStringLiteral String
+                | TIdentifier String
             deriving (Eq,Show)
 
 

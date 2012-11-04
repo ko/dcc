@@ -1,0 +1,6 @@
+#!/bin/bash
+
+TESTNO=$1
+TESTDIR=test
+
+cat $TESTDIR/$TESTNO.test | ./scanner
