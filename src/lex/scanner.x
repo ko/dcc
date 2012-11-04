@@ -38,8 +38,6 @@ tokens :-
     "else"                              { \s -> TElse }
     "while"                             { \s -> TWhile }
     "for"                               { \s -> TFor }
-    
-    "main"                              { \s -> TMain }
     "return"                            { \s -> TReturn }
     "continue"                          { \s -> TContinue }
 
@@ -80,7 +78,6 @@ data Token  = TVoid
                 | TElse
                 | TWhile
                 | TFor
-            | TMain
                 | TReturn
                 | TContinue
             | TNot
