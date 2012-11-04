@@ -3,4 +3,12 @@
 TESTNO=$1
 TESTDIR=test
 
-cat $TESTDIR/$TESTNO.test | ./scanner
+cat $TESTDIR/$TESTNO.test           \
+    | ./scanner                     \
+    | diff $TESTDIR/$TESTNO.out -
+
+if [ $? -ne 0 ]; then
+    echo "Test $TESTNO: FAIL"
+else
+    echo "Test $TESTNO: PASS"
+fi

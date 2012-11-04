@@ -1,0 +1,1 @@
+[TInt,TIdentifier "main",TLeftParen,TVoid,TRightParen,TLeftBrace,TInt,TIdentifier "a",TAssign,TIntLiteral 3,TSemicolon,TInt,TIdentifier "b",TAssign,TIntLiteral 5,TSemicolon,TReturn,TIntLiteral 0,TSemicolon,TRightBrace]
