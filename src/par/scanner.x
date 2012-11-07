@@ -91,9 +91,4 @@ data Token  = TVoid
                 | TIdentifier String
             deriving (Eq,Show)
 
-
-main    = do
-            s <- getContents
-            print (alexScanTokens s)
-
 }
